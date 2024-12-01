@@ -1,0 +1,24 @@
+// entry point to setup docker container for development
+{
+  "name": "Django Dev Environment",
+  "dockerComposeFile": "docker-compose.yml",
+  "service": "app",
+  "workspaceFolder": "../app/",
+  "settings": {
+    "python.defaultInterpreterPath": "/usr/local/bin/python",
+    "python.linting.pylintEnabled": true,
+    "editor.formatOnSave": true
+  },
+  "extensions": [
+    "ms-python.python", // Core Python extension
+    "ms-python.debugpy", // Debugging support
+    "ms-python.vscode-pylance", // Pylance for Python IntelliSense
+    "VisualStudioExptTeam.vscodeintellicode", // IntelliCode for AI-assisted suggestions
+    "GitHub.copilot", // GitHub Copilot for AI-powered suggestions
+  ],
+  "forwardPorts": [
+    8000,
+    5432
+  ],
+  "remoteUser": "root"
+}

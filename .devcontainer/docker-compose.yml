@@ -1,0 +1,33 @@
+# This file is used to define the services that make up your application.
+#  Configuration for each services are also defined here like network ports, volumes, etc.
+version: "3.9"
+services:
+  app:
+    build: .
+    # command: ["sh", "/.devcontainer/scripts/start.sh"]
+    volumes:
+      - ..:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - DEBUG=True
+      - DB_NAME=postgres
+      - DB_USER=postgres
+      - DB_PASSWORD=postgres
+      - DB_HOST=db
+      - DB_PORT=5432
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+
+# Declare named volumes here
+volumes:
+  postgres_data:
