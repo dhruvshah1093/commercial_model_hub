@@ -16,10 +16,17 @@ if [ ! -f manage.py ]; then
 fi
 
 # Check if the app already exists
-if [ ! -d service ]; then
+if [ ! -d core ]; then
   echo "App $REPO_NAME not found. Creating Django app..."
-  python manage.py startapp service
+  python manage.py startapp core
 fi
+
+# check for the database is avaiable 
+python manage.py wait_for_db
+
+# Apply database migrations
+echo "Applying database migrations..."
+python manage.py migrate
 
 # Run the Django development server
 echo "Starting Django server..."
