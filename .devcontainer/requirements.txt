@@ -9,3 +9,4 @@ zappa
 django-zappa
 boto3
 gunicorn
+python-decouple
