@@ -16,8 +16,8 @@ services:
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_HOST=db
-      - DB_PORT=5432
+      - DB_HOST=db # DB_HOST_WRITER=postgres.cluster-cz0608ak0iiw.us-east-1.rds.amazonaws.com
+      - DB_PORT=5432 # DB_HOST_READER=postgres.cluster-ro-cz0608ak0iiw.us-east-1.rds.amazonaws.com
 
   db:
     image: postgres:14
