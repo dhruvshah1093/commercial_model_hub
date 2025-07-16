@@ -5,8 +5,6 @@ django-filter
 psycopg2-binary==2.9.7  # for dev production use psycopg2
 debugpy
 flake8
-zappa
-django-zappa
 boto3
 gunicorn
 python-decouple

@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 # Set the working directory to the root of the project
 WORKING_DIR=$(dirname "$0")/../../ # Adjust this to the desired working directory
 cd "$WORKING_DIR" || exit

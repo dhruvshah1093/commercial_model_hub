@@ -1,6 +1,3 @@
-# This file is used to define the services that make up your application.
-#  Configuration for each services are also defined here like network ports, volumes, etc.
-version: "3.9"
 services:
   app:
     build: .
@@ -16,8 +13,8 @@ services:
       - DB_NAME=postgres
       - DB_USER=postgres
       - DB_PASSWORD=postgres
-      - DB_HOST=db # DB_HOST_WRITER=postgres.cluster-cz0608ak0iiw.us-east-1.rds.amazonaws.com
-      - DB_PORT=5432 # DB_HOST_READER=postgres.cluster-ro-cz0608ak0iiw.us-east-1.rds.amazonaws.com
+      - DB_HOST=db
+      - DB_PORT=5432
 
   db:
     image: postgres:14
@@ -28,6 +25,5 @@ services:
     ports:
       - "5432:5432"
 
-# Declare named volumes here
 volumes:
   postgres_data:
