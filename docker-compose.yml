@@ -3,7 +3,7 @@ services:
     build: .
     # command: ["sh", "/.devcontainer/scripts/start.sh"]
     volumes:
-      - ..:/app
+      - ..:/workspaces
     ports:
       - "8000:8000"
     depends_on:
@@ -15,6 +15,7 @@ services:
       - DB_PASSWORD=postgres
       - DB_HOST=db
       - DB_PORT=5432
+    command: ["/bin/sh", "-c", "chmod +x /workspaces/assessment_api/.devcontainer/scripts/start.sh && /workspaces/assessment_api/.devcontainer/scripts/start.sh"]
 
   db:
     image: postgres:14

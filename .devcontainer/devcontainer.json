@@ -1,9 +1,6 @@
 // entry point to setup docker container for development
 {
   "name": "Django Dev Environment",
-  "dockerComposeFile": "docker-compose.yml",
-  "service": "app",
-  "workspaceFolder": "../app/",
   "settings": {
     "python.defaultInterpreterPath": "/usr/local/bin/python",
     "python.linting.pylintEnabled": true,
@@ -16,9 +13,6 @@
     "VisualStudioExptTeam.vscodeintellicode", // IntelliCode for AI-assisted suggestions
     "GitHub.copilot", // GitHub Copilot for AI-powered suggestions
   ],
-  "forwardPorts": [
-    8000,
-    5432
-  ],
-  "remoteUser": "root"
+  "remoteUser": "root",
+  "postCreateCommand": "chmod +x assessment_api/.devcontainer/scripts/start.sh && ./assessment_api/.devcontainer/scripts/start.sh"
 }
