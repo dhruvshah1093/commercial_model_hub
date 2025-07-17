@@ -23,6 +23,8 @@ spec:
           env:
             - name: DEBUG
               value: "True"
+            - name: SECRET_KEY
+              value: "your-very-secret-django-key"
             - name: DB_NAME
               valueFrom:
                 configMapKeyRef:
