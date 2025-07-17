@@ -14,5 +14,5 @@
     "GitHub.copilot", // GitHub Copilot for AI-powered suggestions
   ],
   "remoteUser": "root",
-  "postCreateCommand": "chmod +x assessment_api/.devcontainer/scripts/start.sh && ./assessment_api/.devcontainer/scripts/start.sh"
+  "postCreateCommand": "chmod +x .devcontainer/scripts/*.sh && .devcontainer/scripts/setup-tools.sh"
 }

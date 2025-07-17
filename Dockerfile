@@ -7,13 +7,12 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     libpq-dev \
     python3-pip \
-    sudo && \
+    sudo \
+    curl && \
     apt-get clean
 
 # Install GitHub CLI
-RUN apt-get update && apt-get install -y \
-    curl && \
-    curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
+RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | dd of=/usr/share/keyrings/githubcli-archive-keyring.gpg && \
     chmod go+r /usr/share/keyrings/githubcli-archive-keyring.gpg && \
     echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | tee /etc/apt/sources.list.d/github-cli.list > /dev/null && \
     apt-get update && apt-get install -y gh
@@ -21,7 +20,14 @@ RUN apt-get update && apt-get install -y \
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-EXPOSE 8000
+# Copy Django project code into container
+COPY . .
 
-# Default command to keep container running
-CMD ["tail", "-f", "/dev/null"]
+# Install Python dependencies
+RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Make the start script executable
+RUN chmod +x /.devcontainer/scripts/start.sh
+
+# Default command to start Django
+CMD ["/bin/sh", "-c", "/.devcontainer/scripts/start.sh"]
