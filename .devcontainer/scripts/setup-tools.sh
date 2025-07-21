@@ -15,4 +15,4 @@ sudo mv minikube /usr/local/bin/
 echo "✅ Tools installed!"
 
 echo "🚀 Starting Minikube with 4GB RAM..."
-minikube start --memory=4096 --driver=docker
+minikube start --memory=4096 --driver=docker --force
