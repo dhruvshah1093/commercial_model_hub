@@ -20,9 +20,6 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-# Copy Django project code into container
-COPY . .
-
 # Install Python dependencies
 RUN pip install --upgrade pip && pip install -r requirements.txt
 

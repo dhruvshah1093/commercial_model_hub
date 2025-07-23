@@ -14,5 +14,6 @@
     "GitHub.copilot", // GitHub Copilot for AI-powered suggestions
   ],
   "remoteUser": "root",
-  "postCreateCommand": "chmod +x .devcontainer/scripts/*.sh && .devcontainer/scripts/setup-tools.sh"
+  "postCreateCommand": "chmod +x .devcontainer/scripts/*.sh && .devcontainer/scripts/setup-tools.sh",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind"
 }

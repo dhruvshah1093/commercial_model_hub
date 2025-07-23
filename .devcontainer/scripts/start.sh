@@ -6,10 +6,11 @@ cd "$WORKING_DIR" || exit
 
 echo "Working directory set to $(pwd)"
 
-REPO_NAME=$(echo $GITHUB_REPOSITORY | cut -d'/' -f2)
-
 # Install Python dependencies
 pip install --no-cache-dir -r requirements.txt
+
+echo "Copying env..."
+cp .env.example .env
 
 # Check if manage.py exists
 if [ ! -f manage.py ]; then
