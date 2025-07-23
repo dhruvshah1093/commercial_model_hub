@@ -20,11 +20,5 @@ RUN curl -fsSL https://cli.github.com/packages/githubcli-archive-keyring.gpg | d
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 
-# Install Python dependencies
-RUN pip install --upgrade pip && pip install -r requirements.txt
-
-# Make the start script executable
-RUN chmod +x /.devcontainer/scripts/start.sh
-
-# Default command to start Django
-CMD ["/bin/sh", "-c", "/.devcontainer/scripts/start.sh"]
+# Default command to start Django NOTE: only for production 
+# CMD ["/bin/sh", "-c", "/.devcontainer/scripts/start.sh"]

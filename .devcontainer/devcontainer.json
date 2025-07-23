@@ -13,7 +13,6 @@
     "VisualStudioExptTeam.vscodeintellicode", // IntelliCode for AI-assisted suggestions
     "GitHub.copilot", // GitHub Copilot for AI-powered suggestions
   ],
-  "remoteUser": "root",
-  "postCreateCommand": "chmod +x .devcontainer/scripts/*.sh && .devcontainer/scripts/setup-tools.sh",
+  "postCreateCommand": "docker compose build --no-cache && docker compose up -d",
   "workspaceMount": "source=${localWorkspaceFolder},target=/workspaces/${localWorkspaceFolderBasename},type=bind"
 }

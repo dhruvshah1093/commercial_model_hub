@@ -7,7 +7,7 @@ cd "$WORKING_DIR" || exit
 echo "Working directory set to $(pwd)"
 
 # Install Python dependencies
-pip install --no-cache-dir -r requirements.txt
+pip install --upgrade pip && pip install -r requirements.txt
 
 echo "Copying env..."
 cp .env.example .env
