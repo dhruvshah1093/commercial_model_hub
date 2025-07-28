@@ -8,3 +8,4 @@ flake8
 boto3
 gunicorn
 python-decouple
+confluent-kafka
