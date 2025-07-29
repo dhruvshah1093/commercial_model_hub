@@ -34,4 +34,4 @@ class KafkaProducerWrapper:
 # from core.kafka_utils.producer import KafkaProducerWrapper
 
 producer = KafkaProducerWrapper()
-producer.send("test-topic", key="order-1", value="Order created successfully!")
+producer.send("tasks", key="order-1", value="Order created successfully!")

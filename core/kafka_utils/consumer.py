@@ -52,9 +52,3 @@ class KafkaConsumerWrapper:
 
 def callbackFunction(key, value):
     print ("\n Callback function called")
-
-if __name__ == "__main__":
-    topic_name = os.getenv("KAFKA_TOPIC", "test-topic")
-    group_id = os.getenv("KAFKA_GROUP_ID", "test-consumer-group")
-    consumer = KafkaConsumerWrapper(topic=topic_name, group_id=group_id)
-    consumer.consume_messages(process_callback=callbackFunction)
