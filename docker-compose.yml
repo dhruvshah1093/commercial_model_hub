@@ -10,23 +10,28 @@ services:
       - kafka
     environment:
       - DEBUG=True
-      - DB_NAME=postgres
-      - DB_USER=postgres
-      - DB_PASSWORD=postgres
-      - DB_HOST=db
-      - DB_PORT=5432
+      - DB_NAME=${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
       - WORKSPACE_NAME=${WORKSPACE_NAME}
       - KAFKA_BROKER=kafka:9092
+      - SECRET_KEY=${SECRET_KEY}
+      - AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+      - AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+      - AWS_STORAGE_BUCKET_NAME=${AWS_STORAGE_BUCKET_NAME}
+      - AWS_REGION_NAME=${AWS_REGION_NAME}
     command: ["/bin/sh", "-c", "chmod +x /workspaces/$WORKSPACE_NAME/.devcontainer/scripts/start.sh && /workspaces/$WORKSPACE_NAME/.devcontainer/scripts/start.sh"]
 
   db:
     image: postgres:14
     environment:
-      POSTGRES_DB: postgres
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5432:5432"
+      - "${DB_PORT}:5432"
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.6.0
