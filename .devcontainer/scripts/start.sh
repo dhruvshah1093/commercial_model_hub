@@ -12,6 +12,20 @@ pip install --upgrade pip && pip install -r requirements.txt
 echo "Copying env..."
 cp .env.example .env
 
+# Dynamically populate .env with values from environment variables
+echo "Populating .env with secrets dynamically..."
+while IFS='=' read -r key _; do
+  # Skip empty lines and comments
+  if [[ -n "$key" && ! "$key" =~ ^# ]]; then
+    value="${!key}" # get value of environment variable
+    if [[ -n "$value" ]]; then
+      sed -i "s|^${key}=.*|${key}=${value}|g" .env
+    fi
+  fi
+done < .env.example
+
+echo ".env file populated with secrets ✅"
+
 # Check if manage.py exists
 if [ ! -f manage.py ]; then
   echo "manage.py not found. Initializing Django project..."
@@ -20,14 +34,14 @@ fi
 
 # Check if the app already exists
 if [ ! -d core ]; then
-  echo "App $REPO_NAME not found. Creating Django app..."
+  echo "App core not found. Creating Django app..."
   python manage.py startapp core
 fi
 
-# check for the database is avaiable 
+# Wait for database to be ready
 python manage.py wait_for_db
 
-# Apply database migrations 
+# Apply database migrations
 echo "Applying database migrations..."
 python manage.py migrate
 
