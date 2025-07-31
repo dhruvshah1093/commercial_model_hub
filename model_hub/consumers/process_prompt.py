@@ -1,7 +1,7 @@
 import json
 import os
 from core.kafka_utils.consumer import KafkaConsumerWrapper
-from core.aws_utils.storage import get_file_from_s3
+from core.aws_utils.storage import generate_presigned_url
 from ..services.instruction_loader import get_instruction
 from ..services.model_client import send_request
 
@@ -12,26 +12,21 @@ def process_message(key, value):
         print(f"📩 Received: {data}")
 
         # 1️⃣ Get instruction
-        instruction = get_instruction(data.get("instruction"))
+        instruction = instruction = get_instruction("analyze_invoice")
         if not instruction:
             print("❌ Instruction not found!")
             return
 
-        file_obj = None
-
         # 2️⃣ If a file is included, get it from S3
-        if "file" in data:
-            s3_key = data["file"].get("key")
-            file_like = get_file_from_s3(s3_key)  # BytesIO
-            filename = os.path.basename(s3_key)
+        if "attachment_location" in data:
+            psurl = generate_presigned_url(data["attachment_location"])
 
-            # Convert BytesIO to tuple for requests
-            file_obj = (filename, file_like, "application/octet-stream")
-
+        print (instruction)
         # 3️⃣ Send request to OpenAI
         result = send_request(
             instruction,
-            file_obj=file_obj,  # Pass tuple instead of file path
+            prompt_text=data.get("prompt"),
+            file_url=psurl,  # Pass URL directly
             overrides=data.get("overrides", {})
         )
 

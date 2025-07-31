@@ -1,4 +1,4 @@
-import os
+import os, json
 from confluent_kafka import Producer
 
 
@@ -34,4 +34,14 @@ class KafkaProducerWrapper:
 # from core.kafka_utils.producer import KafkaProducerWrapper
 
 producer = KafkaProducerWrapper()
-producer.send("tasks", key="order-1", value="Order created successfully!")
+
+# Load JSON file from root directory
+with open("input_message.json", "r") as f:
+    message_data = json.load(f)
+
+# Send message to Kafka
+producer.send(
+    topic="tasks",
+    key="order-1",
+    value=json.dumps(message_data)  # Convert dict → JSON string
+)
