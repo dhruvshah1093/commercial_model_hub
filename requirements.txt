@@ -12,4 +12,4 @@ confluent-kafka
 requests
 pytest
 pytest-django
-moto
+moto[s3]==5.0.3
