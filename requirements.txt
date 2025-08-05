@@ -9,3 +9,7 @@ boto3
 gunicorn
 python-decouple
 confluent-kafka
+requests
+pytest
+pytest-django
+moto

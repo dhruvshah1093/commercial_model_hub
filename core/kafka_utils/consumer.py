@@ -3,8 +3,6 @@ from confluent_kafka import Consumer, KafkaError
 
 
 class KafkaConsumerWrapper:
-    """Reusable Kafka Consumer wrapper with support for custom message processing"""
-
     def __init__(self, topic, group_id="default-group", bootstrap_servers=None):
         self.topic = topic
         self.bootstrap_servers = bootstrap_servers or os.getenv("KAFKA_BROKER", "kafka:9092")
@@ -19,10 +17,6 @@ class KafkaConsumerWrapper:
         self.consumer.subscribe([self.topic])
 
     def consume_messages(self, process_callback=None):
-        """
-        Starts consuming messages. Calls process_callback(key, value) for each message.
-        If process_callback is None, only prints the messages.
-        """
         print(f"🚀 Listening to topic '{self.topic}' on {self.bootstrap_servers}...\n")
 
         try:
