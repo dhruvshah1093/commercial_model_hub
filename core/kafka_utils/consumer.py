@@ -1,4 +1,5 @@
 import os
+import json
 from confluent_kafka import Consumer, KafkaError
 
 
@@ -19,10 +20,6 @@ class KafkaConsumerWrapper:
         self.consumer.subscribe([self.topic])
 
     def consume_messages(self, process_callback=None):
-        """
-        Starts consuming messages. Calls process_callback(key, value) for each message.
-        If process_callback is None, only prints the messages.
-        """
         print(f"🚀 Listening to topic '{self.topic}' on {self.bootstrap_servers}...\n")
 
         try:
@@ -50,5 +47,38 @@ class KafkaConsumerWrapper:
         finally:
             self.consumer.close()
 
+
+# 🔁 Your callback function — will be triggered for each Kafka message
 def callbackFunction(key, value):
-    print ("\n Callback function called")
+    print("\n🔄 Callback function called")
+
+    try:
+        message = json.loads(value)
+        event = message.get("event")
+        data = message.get("data")
+
+        if event == "prompt_created" and data:
+            print(f"📨 Routing prompt ID {data.get('id')}")
+            route_prompt(data)  # <-- Call your routing logic here
+        else:
+            print(f"⚠️ Unsupported event type or malformed message: {event}")
+
+    except json.JSONDecodeError:
+        print(f"❌ Failed to parse JSON: {value}")
+    except Exception as e:
+        print(f"❌ Error during callback: {e}")
+
+
+def route_prompt(data):
+    print(f"➡️  Route this prompt: {data['prompt']}")
+    # Receving the details here
+    # SQL,Files,AI-models -Fallback Systems
+    # Langchain For SQL (verified, time-scanned)
+    # LangGraph For Routing to SQL or Files or AI-models
+
+    # You can plug in LangChain SQL checker here, or call another microservice
+
+
+if __name__ == "__main__":
+    consumer = KafkaConsumerWrapper(topic="prompt_created")
+    consumer.consume_messages(callbackFunction)

@@ -1,11 +1,16 @@
 {
-    "id": "105f9a51-e452-4a6e-9cc2-04d0f6965fdf",
-    "group_id": "123e4567-e89b-12d3-a456-426614174000",
-    "prompt": "What is the total payable in cad dollars?",
-    "attachment_location": "https://airydev.s3.us-east-1.amazonaws.com/prompt_files/a0d75e20-2961-4f55-9d41-cc90e0f83dcc.png",
-    "result": {
-        "status": "processing"
-    },
-    "created_at": "2025-07-31T07:51:24.493770Z",
-    "updated_at": "2025-07-31T07:51:24.493795Z"
+    "event": "prompt_created",
+    "data": {
+        "id": "105f9a51-e452-4a6e-9cc2-04d0f6965fdf",
+        "group_id": "123e4567-e89b-12d3-a456-426614174000",
+        "prompt": "What is the total payable in cad dollars?",
+        "attachment_location": "",
+        "result": {
+            "status": "processing"
+        },
+        "metadata": {
+            "source": "api",
+            "timestamp": "2025-07-31T07:51:24.493770Z"
+        }
+    }
 }
