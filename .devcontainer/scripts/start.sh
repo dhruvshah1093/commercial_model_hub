@@ -34,14 +34,14 @@ fi
 
 # Check if the app already exists
 if [ ! -d core ]; then
-  echo "App core not found. Creating Django app..."
+  echo "App $REPO_NAME not found. Creating Django app..."
   python manage.py startapp core
 fi
 
-# Wait for database to be ready
+# check for the database is avaiable 
 python manage.py wait_for_db
 
-# Apply database migrations
+# Apply database migrations 
 echo "Applying database migrations..."
 python manage.py migrate
 

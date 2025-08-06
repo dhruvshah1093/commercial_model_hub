@@ -27,10 +27,6 @@ def upload_file_to_s3(file_obj, filename_prefix="uploads"):
 
 
 def get_file_from_s3(s3_key_or_url):
-    """
-    Retrieves a file from S3 and returns a BytesIO object.
-    Accepts either an S3 key (path/to/file.pdf) or a full S3 URL.
-    """
     # If it's a URL, extract the key
     if s3_key_or_url.startswith("http"):
         parsed = urlparse(s3_key_or_url)
