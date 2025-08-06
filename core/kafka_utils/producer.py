@@ -39,9 +39,10 @@ producer = KafkaProducerWrapper()
 with open("input_message.json", "r") as f:
     message_data = json.load(f)
 
+print(message_data)
 # Send message to Kafka
 producer.send(
-    topic="tasks",
-    key="order-1",
+    topic="prompts",
+    key=message_data['data']['group_id'],  # Same key prompts are in the same partition and shared , different key means processed alone (heavier tasks)
     value=json.dumps(message_data)  # Convert dict → JSON string
 )
