@@ -13,3 +13,8 @@ requests
 pytest
 pytest-django
 moto
+langchain
+langchain-community
+langchain-experimental
+langchain-openai
+psycopg2-binary

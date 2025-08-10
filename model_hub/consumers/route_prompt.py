@@ -4,6 +4,7 @@ from core.kafka_utils.consumer import KafkaConsumerWrapper
 from core.aws_utils.storage import generate_presigned_url
 from ..services.instruction_loader import get_instruction
 from ..services.model_client import send_request
+from ..services.generate_sql import can_generate_sql, run_sql_chain
 
 def route_prompt(key, data):
     message = json.loads(data)
@@ -18,11 +19,12 @@ def route_prompt(key, data):
     # 1️⃣ Try SQL path
     if can_generate_sql(prompt):
         sql_result = run_sql_chain(prompt, group_id)
+        print(sql_result)
         if is_sql_result_sufficient(sql_result):
             print("✅ SQL result sufficient, sending to result handler...")
             send_to_result(sql_result, data)
             return
-
+    return
     # 2️⃣ If SQL fails or insufficient, check attachments
     if attachment_location:
         print("📂 Attachment found, running file extraction...")
@@ -36,33 +38,29 @@ def route_prompt(key, data):
     send_to_result(final_response, data)
 
 
-def can_generate_sql(prompt):
-    """Stub: Replace with LangChain SQL checker logic"""
-    return False
+# def run_sql_chain(prompt, group_id):
+#     """Stub: Replace with LangChain SQLDatabaseChain"""
+#     return {}
 
-def run_sql_chain(prompt, group_id):
-    """Stub: Replace with LangChain SQLDatabaseChain"""
-    return {}
+# def is_sql_result_sufficient(sql_result):
+#     """Stub: Replace with real evaluation"""
+#     return False
 
-def is_sql_result_sufficient(sql_result):
-    """Stub: Replace with real evaluation"""
-    return False
+# def run_file_extraction(attachment_location):
+#     """Stub: Replace with OCR, Gemini, Claude, etc."""
+#     return "Extracted file text here"
 
-def run_file_extraction(attachment_location):
-    """Stub: Replace with OCR, Gemini, Claude, etc."""
-    return "Extracted file text here"
+# def run_ai_with_context(prompt, context):
+#     """Stub: Combine prompt with extracted context, run AI"""
+#     return f"AI answer using context: {context}"
 
-def run_ai_with_context(prompt, context):
-    """Stub: Combine prompt with extracted context, run AI"""
-    return f"AI answer using context: {context}"
+# def run_ai_without_file(prompt):
+#     """Stub: Direct AI call without extra context"""
+#     return f"AI answer to prompt: {prompt}"
 
-def run_ai_without_file(prompt):
-    """Stub: Direct AI call without extra context"""
-    return f"AI answer to prompt: {prompt}"
-
-def send_to_result(result, original_data):
-    """Stub: Push final result to Kafka or update DB"""
-    print(f"📤 Final result for {original_data['id']}: {result}")
+# def send_to_result(result, original_data):
+#     """Stub: Push final result to Kafka or update DB"""
+#     print(f"📤 Final result for {original_data['id']}: {result}")
     
 # LangGraph code to route to different processes 
 def main():
